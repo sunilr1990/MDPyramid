@@ -2,12 +2,21 @@ package com.casestudy.app;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.casestudy.app.Application;
 import com.casestudy.pyramid.exception.PyramidException;
+import com.casestudy.pyramid.service.PyramidService;
+import com.casestudy.pyramid.service.PyramidServiceImpl;
 
-public class ApplicationTest extends AbstractTest {
+public class PyramidServiceTest extends AbstractTest {
+
+    static PyramidService pyramidService = null;
+
+    @BeforeClass
+    public static void setUp() {
+        pyramidService = new PyramidServiceImpl();
+    }
 
 	@Test
 	public void testRun_givenInputIsNull__returnException() {
@@ -19,7 +28,7 @@ public class ApplicationTest extends AbstractTest {
 		thrown.expect(PyramidException.class);
 		thrown.expectMessage("File path can not be null or empty");
 
-		Application.run(filePath);
+        pyramidService.run(filePath);
 	}
 
 	@Test
@@ -32,7 +41,7 @@ public class ApplicationTest extends AbstractTest {
 		thrown.expect(PyramidException.class);
 		thrown.expectMessage("File path can not be null or empty");
 
-		Application.run(filePath);
+        pyramidService.run(filePath);
 	}
 
 	@Test
@@ -48,7 +57,7 @@ public class ApplicationTest extends AbstractTest {
 		// 4 5 2 3
 
 		// When
-		int maxPathSum = Application.run(filePath);
+        int maxPathSum = pyramidService.run(filePath);
 
 		// Expected
 		assertEquals(16, maxPathSum);
@@ -78,7 +87,7 @@ public class ApplicationTest extends AbstractTest {
 		// 924 622 911 233 325 139 721 218 253 223 107 233 230 124 233
 
 		// When
-		int maxPathSum = Application.run(filePath);
+        int maxPathSum = pyramidService.run(filePath);
 
 		// Expected
 		assertEquals(8186, maxPathSum);
@@ -94,7 +103,7 @@ public class ApplicationTest extends AbstractTest {
 		thrown.expect(PyramidException.class);
 		thrown.expectMessage("File does not exist");
 
-		Application.run(filePath);
+        pyramidService.run(filePath);
 	}
 
 }
