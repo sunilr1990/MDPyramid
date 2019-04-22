@@ -23,3 +23,10 @@ Path: 1, 8, 5, 2
 Maven 3.X
 Java 1.8
 Junit 4.x
+
+This case study has been implemented using two approaches.
+## Approach -1
+Using brute force algorithm 
+
+## Approach -2
+Using two dimensional array
