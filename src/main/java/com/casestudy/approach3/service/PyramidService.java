@@ -1,4 +1,4 @@
-package com.casestudy.pyramid.service;
+package com.casestudy.approach3.service;
 
 public interface PyramidService {
 

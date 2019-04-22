@@ -1,18 +1,13 @@
-package com.casestudy.pyramid.service;
+package com.casestudy.approach3.service;
 
-import java.util.List;
-
-import com.casestudy.pyramid.domain.Node;
-import com.casestudy.pyramid.utils.FileReadUtil;
+import com.casestudy.approach3.domain.Node;
 
 public class PyramidServiceImpl implements PyramidService {
 
-
     @Override
     public int run(String filePath) {
-        List<int[]> readInput = FileReadUtil.readInput(filePath);
         Node mdPyramidService = new Node();
-        mdPyramidService.constructTree(readInput);
+        mdPyramidService.readInput(filePath);
         mdPyramidService.convertToDiagonalTree();
         mdPyramidService.findMaximumSumPath(mdPyramidService.getRoot(), new int[1000], 0);
         return mdPyramidService.writeOutput();

@@ -1,21 +1,20 @@
-package com.casestudy.app;
+package com.casestudy.bruteforce;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.casestudy.app.AbstractTest;
 import com.casestudy.pyramid.exception.PyramidException;
-import com.casestudy.pyramid.service.PyramidService;
-import com.casestudy.pyramid.service.PyramidServiceImpl;
 
-public class PyramidServiceTest extends AbstractTest {
+public class PyramidBruteForceTest extends AbstractTest {
 
-    static PyramidService pyramidService = null;
+    static PyramidMaxSum pyramidService = null;
 
     @BeforeClass
     public static void setUp() {
-        pyramidService = new PyramidServiceImpl();
+        pyramidService = new PyramidMaxSum();
     }
 
 	@Test
@@ -47,6 +46,8 @@ public class PyramidServiceTest extends AbstractTest {
 	@Test
 	public void testRun_givenInput_returnMaxPathSum16() {
 
+        long currentTimeMillis = System.currentTimeMillis();
+
 		// Given
 		String filePath = "/testInput/Case_1.txt";
 		
@@ -59,12 +60,17 @@ public class PyramidServiceTest extends AbstractTest {
 		// When
         int maxPathSum = pyramidService.run(filePath);
 
+        long currentTimeMillis1 = System.currentTimeMillis();
+        System.out.println(currentTimeMillis1 - currentTimeMillis);
+
 		// Expected
 		assertEquals(16, maxPathSum);
 	}
 
 	@Test
 	public void testRun_givenInput__returnMaxPathSum8186() {
+
+        long currentTimeMillis = System.currentTimeMillis();
 
 		// Given
 		String filePath = "/testInput/Case_2.txt";
@@ -88,6 +94,9 @@ public class PyramidServiceTest extends AbstractTest {
 
 		// When
         int maxPathSum = pyramidService.run(filePath);
+
+        long currentTimeMillis1 = System.currentTimeMillis();
+        System.out.println(currentTimeMillis1 - currentTimeMillis);
 
 		// Expected
 		assertEquals(8186, maxPathSum);

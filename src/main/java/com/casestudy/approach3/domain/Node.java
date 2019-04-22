@@ -1,9 +1,22 @@
-package com.casestudy.pyramid.domain;
+package com.casestudy.approach3.domain;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
+import com.casestudy.pyramid.exception.PyramidException;
+
+/**
+ * Domain class constructed in DDD approch to give max sum
+ * 
+ * @author sunil.r
+ *
+ */
 public class Node {
 
     private int  data;
@@ -19,12 +32,10 @@ public class Node {
     public Node() {
     }
 
-    public void constructTree(List<int[]> list) {
-        list.forEach(this::addNewLevelToTree);
-    }
-
+    /**
+     * Converts loaded nodes to diagonal tree
+     */
     public void convertToDiagonalTree() {
-        validateNode();
 
         Queue<Node> queue = new LinkedList<>();
         queue.add(root.leftNode);
@@ -59,18 +70,11 @@ public class Node {
         return qNode;
     }
 
-    private void validateNode() {
-        if (root == null)
-            return;
-
-        if (root.leftNode == null && root.rightNode == null)
-            return;
-    }
-
-    public int writeOutput() {
-        return maxPathSum;
-    }
-
+    /**
+     * Adding array to nodes
+     * 
+     * @param nodes
+     */
     private void addNewLevelToTree(int[] nodes) {
         if (nodes == null || nodes.length < 1)
             return;
@@ -119,6 +123,13 @@ public class Node {
         queueNode.rightNode = new Node(nodes[++index]);
     }
 
+    /**
+     * Calculates max sum
+     * 
+     * @param node
+     * @param path
+     * @param pathLen
+     */
     public void findMaximumSumPath(Node node, int[] path, int pathLen) {
 
         if (node == null)
@@ -150,6 +161,31 @@ public class Node {
 
     public Node getRoot() {
         return root;
+    }
+
+    public void readInput(final String filePath) {
+
+        if (null == filePath || filePath.isEmpty()) {
+            throw new PyramidException("File path can not be null or empty");
+        }
+
+        try {
+            URL url = Node.class.getResource(filePath);
+
+            if (null == url) {
+                throw new PyramidException("File does not exist");
+            }
+
+            File file = new File(url.getPath());
+
+            Files.lines(Paths.get(file.getPath())).forEach(s -> addNewLevelToTree(Arrays.stream(s.trim().split("\\s+")).mapToInt(Integer::parseInt).toArray()));
+        } catch (IOException exception) {
+            throw new PyramidException("Exception occured while reading file " + filePath, exception);
+        }
+    }
+
+    public int writeOutput() {
+        return maxPathSum;
     }
 
 }
